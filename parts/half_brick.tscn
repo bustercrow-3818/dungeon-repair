@@ -1,0 +1,27 @@
+[gd_scene load_steps=5 format=3 uid="uid://bmuy5c8r6415s"]
+
+[ext_resource type="Texture2D" uid="uid://cwd7sdukncs5m" path="res://assets/sprites/half_brick.png" id="1_u86tw"]
+[ext_resource type="Script" uid="uid://cvi4gbk11ya0g" path="res://parts/brick.gd" id="2_k0vaq"]
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_k0vaq"]
+size = Vector2(32, 32)
+
+[sub_resource type="CircleShape2D" id="CircleShape2D_k0vaq"]
+radius = 8.0
+
+[node name="half_brick" type="Sprite2D" node_paths=PackedStringArray("mouse_area", "placement_area", "brick_bounds")]
+texture = ExtResource("1_u86tw")
+script = ExtResource("2_k0vaq")
+mouse_area = NodePath("mouse_detection")
+placement_area = NodePath("placement_detection")
+brick_bounds = NodePath("mouse_detection/CollisionShape2D")
+
+[node name="mouse_detection" type="Area2D" parent="."]
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="mouse_detection"]
+shape = SubResource("RectangleShape2D_k0vaq")
+
+[node name="placement_detection" type="Area2D" parent="."]
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="placement_detection"]
+shape = SubResource("CircleShape2D_k0vaq")

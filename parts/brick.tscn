@@ -1,0 +1,32 @@
+[gd_scene load_steps=5 format=3 uid="uid://cyqy5jpi5sbok"]
+
+[ext_resource type="Texture2D" uid="uid://cmoles63r6ra8" path="res://assets/sprites/brick.png" id="1_q54o8"]
+[ext_resource type="Script" uid="uid://cvi4gbk11ya0g" path="res://parts/brick.gd" id="2_6ih05"]
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_6ih05"]
+size = Vector2(64, 32)
+
+[sub_resource type="CapsuleShape2D" id="CapsuleShape2D_6ih05"]
+radius = 8.0
+height = 48.0
+
+[node name="brick" type="Sprite2D" node_paths=PackedStringArray("mouse_area", "placement_area", "brick_bounds")]
+texture = ExtResource("1_q54o8")
+script = ExtResource("2_6ih05")
+mouse_area = NodePath("mouse_detection")
+placement_area = NodePath("placement_detection")
+brick_bounds = NodePath("mouse_detection/mouse_detection")
+grab_scatter_range = Vector2(-4, 4)
+drop_scatter_range = Vector2(-8, 8)
+drop_scatter_time = 0.15
+
+[node name="mouse_detection" type="Area2D" parent="."]
+
+[node name="mouse_detection" type="CollisionShape2D" parent="mouse_detection"]
+shape = SubResource("RectangleShape2D_6ih05")
+
+[node name="placement_detection" type="Area2D" parent="."]
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="placement_detection"]
+rotation = 1.5707964
+shape = SubResource("CapsuleShape2D_6ih05")
