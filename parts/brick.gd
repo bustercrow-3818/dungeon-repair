@@ -1,6 +1,9 @@
 extends Sprite2D
 class_name Brick
 
+signal brick_placed(id: Brick)
+signal brick_removed(id: Brick)
+
 @export_category("Node References")
 @export var mouse_area: Area2D
 @export var placement_area: Area2D
@@ -74,11 +77,13 @@ func drag() -> void:
 			tween.tween_property(self, "global_position", global_position + Vector2(randf_range(drop_scatter_range.x, drop_scatter_range.y), randf_range(drop_scatter_range.x, drop_scatter_range.y)), drop_scatter_time)
 			change_state(states.IDLE)
 		else:
+			brick_placed.emit(self)
 			global_position = check_areas[0].global_position
 			change_state(states.PLACED)
 	
 func placed() -> void:
 	if Input.is_action_just_pressed("click") and mouse_in_area == true:
+		brick_removed.emit(self)
 		bounds = Rect2(0,0,0,0)
 		change_state(states.DRAG)
 
